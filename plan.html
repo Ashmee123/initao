@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Visit to Initao</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* bg-cyan-50 */
+            margin: 0;
+            padding: 0;
+            color: #2e7d32; /* text-green-800 */
+            box-sizing: border-box;
+            transition: margin-right 0.3s ease-in-out; /* Smooth transition for body shift */
+        }
+
+        /* Prevent horizontal scroll when menu is open */
+        body.menu-open {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: rgba(224, 247, 250, 0.8);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            border-bottom: 1px solid #b2dfdb;
+        }
+
+        /* Navigation container styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo image styles */
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        /* Navigation links list styles */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+            gap: 1.5rem;
+            /* Default for desktop */
+        }
+
+        /* Navigation link item styles */
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: #00bfa5;
+            background-color: rgba(0, 191, 165, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu button styles (hidden by default on desktop) */
+        .menu-button {
+            display: none; /* Hidden on larger screens */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #00bfa5;
+        }
+
+        /* Plan section styles */
+        .plan-section {
+            padding-top: 8rem; /* To account for fixed header */
+            padding-bottom: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden; /* Keep overflow hidden for Swiper */
+            padding-left: 1rem; /* Add padding for smaller screens */
+            padding-right: 1rem; /* Add padding for smaller screens */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .plan-section {
+                padding-top: 8rem; /* Adjust for larger header on desktop */
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* Section title styles */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #00695c;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            letter-spacing: 0.05em;
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        /* Keyframes for the fadeInScale animation */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        
+        }
+
+        /* Swiper container styles */
+        .swiper {
+            width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        /* Swiper wrapper styles */
+        .swiper-wrapper {
+            display: flex;
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            margin-bottom: 4rem;
+        }
+
+        /* Swiper slide styles (individual cards) */
+        .swiper-slide {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            min-height: 250px;
+            box-sizing: border-box;
+        }
+
+        .swiper-slide:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Plan item title styles */
+        .plan-item h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #00897b;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            letter-spacing: 0.03em;
+        }
+
+        /* Plan item paragraph and list styles */
+        .plan-item p, .plan-item ul {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        /* Plan item list styles */
+        .plan-item ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        /* Plan item list item styles */
+        .plan-item li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #00695c;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 5rem;
+            border-top: 1px solid #00897b;
+        }
+
+        /* Swiper Navigation Buttons */
+        .swiper-button-prev, .swiper-button-next {
+            color: #00bfa5;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-top: -25px;
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .swiper-button-prev:hover, .swiper-button-next:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .swiper-button-prev:after, .swiper-button-next:after {
+            font-size: 2rem;
+        }
+
+        /* Swiper Pagination Dots */
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #b2dfdb;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #00bfa5;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 767px) { /* Changed to 767px for consistency */
+            /* Navigation adjustments for mobile */
+            nav {
+                flex-wrap: wrap; /* Allow items to wrap */
+                padding: 0 1rem; /* Adjust padding for smaller screens */
+            }
+
+            .logo {
+                flex-grow: 1; /* Allow logo to take available space */
+            }
+
+            .menu-button {
+                display: block; /* Show hamburger menu on small screens */
+            }
+
+            .nav-links {
+                /* Mobile sidebar specific styles */
+                position: fixed; /* Fixed position for sidebar */
+                top: 0;
+                right: -100%; /* Start off-screen to the right */
+                height: 100%; /* Full height */
+                width: 70%; /* Adjust width as needed, e.g., 70% of viewport width */
+                max-width: 300px; /* Max width for larger mobile devices */
+                background-color: rgba(224, 247, 250, 0.95); /* Semi-transparent background */
+                padding: 6rem 1rem 1rem; /* Padding for top (below header), right, bottom, left */
+                flex-direction: column; /* Stack links vertically */
+                align-items: center; /* Center links horizontally within sidebar */
+                transition: right 0.3s ease-in-out; /* Smooth transition for sliding */
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                z-index: 100; /* Ensure it's above other content */
+                overflow-y: auto; /* Enable scrolling if links exceed height */
+                display: flex; /* Keep flex for layout, but hide by position */
+            }
+
+            .nav-links.active {
+                right: 0; /* Slide into view */
+            }
+
+            .nav-links a {
+                padding: 0.75rem 1.5rem; /* More padding for touch targets */
+                width: 100%; /* Full width within the sidebar */
+                text-align: center; /* Center text */
+                border-bottom: 1px solid #b2dfdb; /* Separator between links */
+            }
+            .nav-links li:last-child a {
+                border-bottom: none; /* No border for the last link */
+            }
+
+            /* Plan section adjustments for mobile */
+            .plan-section {
+                padding-top: 5rem; /* Adjusted padding for mobile */
+            }
+
+            .section-title {
+                font-size: 2.5rem; /* Smaller title on mobile */
+            }
+
+            /* Swiper adjustments for mobile */
+            .swiper-slide {
+                padding: 1.5rem; /* Smaller padding on mobile */
+            }
+
+            .plan-item h3 {
+                font-size: 1.5rem; /* Smaller heading on mobile */
+            }
+
+            .plan-item p, .plan-item ul {
+                font-size: 1rem; /* Smaller text on mobile */
+            }
+        }
+
+        @media (max-width: 639px) { /* Adjust Swiper for smaller mobile screens */
+            .swiper-button-prev, .swiper-button-next {
+                display: none; /* Hide navigation arrows on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Initao Logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';" style="height: 60px; margin-right: 10px;">
+            </div>
+            <button class="menu-button" id="menuButton" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="plan.html">Plan Your Visit</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="plan-section">
+        <h2 class="section-title">Plan Your Visit to Initao</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="plan-item">
+                        <h3>Getting Here</h3>
+                        <p>Initao is easily accessible by land transportation from major cities in Northern Mindanao. The nearest major airport is Laguindingan Airport (CGY), approximately an hour's drive away. Buses and vans regularly travel to Initao from Cagayan de Oro City and other neighboring towns.</p>
+                        <p><strong>Transportation Options:</strong></p>
+                        <ul>
+                            <li><strong>Bus:</strong> Regular bus services from Cagayan de Oro City.</li>
+                            <li><strong>Van:</strong> Faster van services are also available.</li>
+                            <li><strong>Taxi/Car Rental:</strong> Available from Laguindingan Airport.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="plan-item">
+                        <h3>Accommodation</h3>
+                        <p>Initao offers a range of accommodation options to suit different budgets and preferences. It's recommended to book in advance, especially during peak season.</p>
+                        <p><strong>Where to Stay:</strong></p>
+                        <ul>
+                            <li><strong>Beach Resorts:</strong> For a relaxing stay by the sea.</li>
+                            <li><strong>Guesthouses:</strong> Budget-friendly options in the town center.</li>
+                            <li><strong>Hotels:</strong> Comfortable amenities and convenient locations.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="plan-item">
+                        <h3>Best Time to Visit</h3>
+                        <p>The best time to visit Initao is during the dry season, which typically runs from November to May, offering sunny skies and calm seas ideal for beach activities and exploration. The shoulder months of June and October can also be pleasant, with fewer crowds.</p>
+                        <p><strong>Weather Averages:</strong></p>
+                        <ul>
+                            <li><strong>Dry Season (Nov-May):</strong> 25°C - 32°C, minimal rainfall.</li>
+                            <li><strong>Wet Season (Jun-Oct):</strong> 24°C - 30°C, occasional heavy rainfall.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="plan-item">
+                        <h3>Local Tips</h3>
+                        <p>To make the most of your visit, consider these local tips:</p>
+                        <ul>
+                            <li>Try the fresh seafood available at local restaurants.</li>
+                            <li>Respect the local customs and traditions.</li>
+                            <li>Bring appropriate attire for the beach and cave explorations.</li>
+                            <li>Stay hydrated, especially during outdoor activities.</li>
+                            <li>Learn a few basic Filipino phrases for a more enriching experience.</li>
+                            <li>Bargaining is common in local markets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Initao Tourism. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // Get references to DOM elements
+        const menuButton = document.getElementById('menuButton');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+
+        /**
+         * Toggles the visibility of the navigation links for mobile.
+         * Also toggles a class on the body to prevent horizontal scrolling.
+         */
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            body.classList.toggle('menu-open'); // Toggle class on body to prevent scroll
+        }
+
+        // Add event listener for the menu button
+        if (menuButton) {
+            menuButton.addEventListener('click', toggleMenu);
+        }
+
+        // Add an event listener to close the menu on resize if it's open and screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class on body
+            }
+        });
+
+        // Initialize Swiper.js carousel
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                },
+                1024: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+            },
+        });
+
+        function logout() {
+    // Here you would typically clear any user session data (e.g., tokens, user info)
+    // For this example, we'll just redirect.
+    console.log("Logging out...");
+    // Redirect to your login page (e.g., login.html)
+    window.location.href = "index.html"; // Make sure you have a login.html file
+}
+
+// Get the logout button and add an event listener
+const logoutBtn = document.getElementById('logoutButton');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        logout();
+    });
+}
+    </script>
+</body>
+</html>

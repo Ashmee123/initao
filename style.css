@@ -1,0 +1,507 @@
+/* style.css */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.7;
+    background-color: #f9f9f9;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden; /* Prevent horizontal scrollbar during animations */
+}
+
+header {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('images/hero_image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    padding: 30px 0;
+    position: relative;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo a {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 30px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.15em;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links li a:hover {
+    color: #ffc107;
+}
+
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #ffc107;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::before {
+    width: 100%;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    margin: 6px;
+    transition: all 0.3s ease;
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 70vh;
+    padding: 0 30px;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero-content h1 {
+    font-size: 4em;
+    font-weight: 700;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hero-content p {
+    font-size: 1.3em;
+    color: #eee;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.3s;
+}
+
+.hero-content .button {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #222;
+    padding: 16px 35px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out, opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.hero-content .button:hover {
+    background-color: #f0ab00;
+    transform: scale(1.05) translateX(-20px); /* Keep translateX for consistent hover */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 30px;
+}
+
+.home-section,
+.attractions-section,
+.activities-section,
+.gallery-section,
+.plan-section,
+.contact-section {
+    padding: 80px 0;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.home-section.visible,
+.attractions-section.visible,
+.activities-section.visible,
+.gallery-section.visible,
+.plan-section.visible,
+.contact-section.visible {
+    opacity: 1;
+}
+
+.home-grid,
+.attractions-grid,
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.home-text {
+    text-align: left;
+}
+
+.home-text h2 {
+    font-size: 2.8em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #444;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.home-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s;
+}
+
+.attraction-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.attractions-grid .attraction-card:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.attractions-grid .attraction-card:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.attractions-grid .attraction-card:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.attractions-grid .attraction-card:nth-child(4) {
+    transition-delay: 0.8s;
+}
+
+.attractions-section.visible .attraction-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.attraction-card:hover {
+    transform: translateY(-8px);
+}
+
+.attraction-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.attraction-card h3 {
+    font-size: 1.6em;
+    font-weight: 500;
+    margin: 20px 15px;
+    color: #333;
+}
+
+.attraction-card p {
+    font-size: 1.1em;
+    margin: 0 15px 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.learn-more {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.learn-more:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.activities-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.activity-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.activities-section.visible .activity-item:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.activities-section.visible .activity-item:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.activities-section.visible .activity-item:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.activities-section.visible .activity-item:nth-child(4) {
+    transition-delay: 0.8s;
+}
+
+.activities-section.visible .activity-item:nth-child(5) {
+    transition-delay: 1.0s;
+}
+
+.activities-section.visible .activity-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.activity-item:hover {
+    transform: translateY(-5px);
+}
+
+.activity-item i {
+    font-size: 2.5em;
+    color: #ffc107;
+    margin-bottom: 15px;
+}
+
+.activity-item h3 {
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.activity-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, opacity 0.5s ease;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.gallery-section.visible .gallery-grid img:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+.gallery-section.visible .gallery-grid img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+}
+
+.load-more {
+    display: block;
+    margin: 30px auto 0;
+    padding: 12px 30px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out, opacity 0.5s ease, transform 0.3s ease 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.gallery-section.visible .load-more {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.load-more:hover {
+    background-color: #1e7e34;
+    transform: scale(1.02);
+}
+
+.plan-item {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.plan-section.visible .plan-item:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.plan-section.visible .plan-item:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.plan-section.visible .plan-item:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.plan-section.visible .plan-item:nth-child(4) {
+    transition-delay: 0.8s;
+}
+
+.plan-section.visible .plan-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.plan-item h3 {
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.plan-item p,
+.plan-item ul {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.plan-item ul li {
+    list-style: disc;
+    margin-left: 25px;
+}
+
+.contact-section {
+    background-color: #f4f4f4;
+}
+
+.contact-form {
+    margin-top: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.contact-section.visible .contact-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-form h2 {
+    font-size: 2.2em;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.contact-section.visible .form-group:nth-child(2) {
+    transition-delay: 0.2s;
+}

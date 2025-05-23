@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initao Activities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* bg-cyan-50 */
+            margin: 0;
+            padding: 0;
+            color: #2e7d32; /* text-green-800 */
+            box-sizing: border-box;
+            transition: margin-right 0.3s ease-in-out; /* Smooth transition for body shift */
+        }
+
+        /* Prevent horizontal scroll when menu is open */
+        body.menu-open {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: rgba(224, 247, 250, 0.8);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            border-bottom: 1px solid #b2dfdb;
+        }
+
+        /* Navigation container styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo image styles */
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        /* Navigation links list styles */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+            gap: 1.5rem;
+            /* Default for desktop */
+        }
+
+        /* Navigation link item styles */
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: #00bfa5;
+            background-color: rgba(0, 191, 165, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu button styles (hidden by default on desktop) */
+        .menu-button {
+            display: none; /* Hidden on larger screens */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #00bfa5;
+        }
+
+        /* Activities section styles */
+        .activities-section {
+            padding-top: 7rem; /* To account for fixed header */
+            padding-bottom: 4rem;
+            text-align: center;
+            max-width: 1200px; /* Constrain content width */
+            margin: 0 auto; /* Center content */
+            padding-left: 1rem; /* Add padding for smaller screens */
+            padding-right: 1rem; /* Add padding for smaller screens */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .activities-section {
+                padding-top: 8rem; /* Adjust for larger header on desktop */
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* Section title styles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00695c;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            /* Animation added here */
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        /* Keyframes for the fadeInScale animation */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Activities grid styles */
+        .activities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-items: center; /* Center grid items */
+        }
+
+        /* Individual activity card styles */
+        .activity-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%; /* Make cards equal height */
+            width: 100%; /* Ensure card takes full width of its grid column */
+            max-width: 350px; /* Max width for individual cards to prevent excessive stretching */
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+
+        .activity-card:hover {
+            transform: translateY(-0.75rem);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Activity card image styles */
+        .activity-card img {
+            width: 100%;
+            height: 12rem; /* Fixed height for consistent card appearance */
+            object-fit: cover; /* Ensures the image fills the space, cropping if necessary */
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .activity-card img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Activity card title styles */
+        .activity-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #00897b;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Activity card paragraph text styles */
+        .activity-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #2e7d32;
+            flex-grow: 1; /* Allows paragraph to take available space */
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #00695c;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1024px) {
+            .activities-list {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+            }
+        }
+
+        @media (max-width: 767px) { /* Changed to 767px for consistency */
+            /* Navigation adjustments for mobile */
+            nav {
+                flex-wrap: wrap; /* Allow items to wrap */
+                padding: 0 1rem; /* Adjust padding for smaller screens */
+            }
+
+            .logo {
+                flex-grow: 1; /* Allow logo to take available space */
+            }
+
+            .menu-button {
+                display: block; /* Show hamburger menu on small screens */
+            }
+
+            .nav-links {
+                /* Mobile sidebar specific styles */
+                position: fixed; /* Fixed position for sidebar */
+                top: 0;
+                right: -100%; /* Start off-screen to the right */
+                height: 100%; /* Full height */
+                width: 70%; /* Adjust width as needed, e.g., 70% of viewport width */
+                max-width: 300px; /* Max width for larger mobile devices */
+                background-color: rgba(224, 247, 250, 0.95); /* Semi-transparent background */
+                padding: 6rem 1rem 1rem; /* Padding for top (below header), right, bottom, left */
+                flex-direction: column; /* Stack links vertically */
+                align-items: center; /* Center links horizontally within sidebar */
+                transition: right 0.3s ease-in-out; /* Smooth transition for sliding */
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                z-index: 100; /* Ensure it's above other content */
+                overflow-y: auto; /* Enable scrolling if links exceed height */
+                display: flex; /* Keep flex for layout, but hide by position */
+            }
+
+            .nav-links.active {
+                right: 0; /* Slide into view */
+            }
+
+            .nav-links a {
+                padding: 0.75rem 1.5rem; /* More padding for touch targets */
+                width: 100%; /* Full width within the sidebar */
+                text-align: center; /* Center text */
+                border-bottom: 1px solid #b2dfdb; /* Separator between links */
+            }
+            .nav-links li:last-child a {
+                border-bottom: none; /* No border for the last link */
+            }
+
+            /* Activities section and grid adjustments for mobile */
+            .activities-section {
+                padding: 5rem 1rem 1rem; /* Adjusted padding for mobile */
+            }
+
+            .section-title {
+                font-size: 2rem; /* Smaller title on mobile */
+            }
+
+            .activities-list {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 1.5rem; /* Slightly smaller gap on mobile */
+            }
+
+            .activity-card {
+                max-width: 100%; /* Allow cards to take full width on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Initao Logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';" style="height: 60px; margin-right: 10px;">
+            </div>
+            <button class="menu-button" id="menuButton" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="plan.html">Plan Your Visit</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="activities-section">
+        <h2 class="section-title">Exciting Activities</h2>
+        <div class="activities-list">
+            <div class="activity-card">
+                <img src="images/hopping.webp" alt="Beach Hopping" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Beach+Hopping';">
+                <h3>Beach Hopping</h3>
+                <p>Explore the different beaches along the Initao coast, each with its unique charm.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/cave2.jpg" alt="Cave Exploration" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Cave+Exploration';">
+                <h3>Cave Exploration</h3>
+                <p>Embark on an adventure to discover the depths and wonders of Initao's caves.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/snorkeling.jpg" alt="Snorkeling and Diving" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Snorkeling';">
+                <h3>Snorkeling and Diving</h3>
+                <p>Witness the vibrant marine life in the protected waters of Initao.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/pm.jpg" alt="Local Market Visits" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Market+Visits';">
+                <h3>Local Market Visits</h3>
+                <p>Immerse yourself in the local culture by visiting the bustling markets.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/lasang.jpg" alt="Nature Walks" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Nature+Walks';">
+                <h3>Nature Walks</h3>
+                <p>Enjoy the scenic trails and lush greenery of the protected landscape.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/fishing.jpg" alt="Fishing Tours" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Fishing+Tours';">
+                <h3>Fishing Tours</h3>
+                <p>Experience the thrill of catching your own fish with local guides.</p>
+            </div>
+            <div class="activity-card">
+                <img src="images/sunset.jpg" alt="Sunset Watching" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Sunset+Watching';">
+                <h3>Sunset Watching</h3>
+                <p>Relax and enjoy the breathtaking views of the sunset over the ocean.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Initao Tourism. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get references to DOM elements
+        const menuButton = document.getElementById('menuButton');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+
+        /**
+         * Toggles the visibility of the navigation links for mobile.
+         * Also toggles a class on the body to prevent horizontal scrolling.
+         */
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            body.classList.toggle('menu-open'); // Toggle class on body to prevent scroll
+        }
+
+        // Add event listener for the menu button
+        if (menuButton) {
+            menuButton.addEventListener('click', toggleMenu);
+        }
+
+        // Add an event listener to close the menu on resize if it's open and screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class on body
+            }
+        });
+
+        function logout() {
+            // Here you would typically clear any user session data (e.g., tokens, user info)
+            // For this example, we'll just redirect.
+            console.log("Logging out...");
+            // Redirect to your login page (e.g., login.html)
+            window.location.href = "index.html"; // Make sure you have a login.html file
+        }
+
+        // Get the logout button and add an event listener
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                logout();
+            });
+        }
+    </script>
+</body>
+</html>

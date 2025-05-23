@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Initao's Wonders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* bg-cyan-50 */
+            margin: 0;
+            padding: 0;
+            color: #2e7d32; /* text-green-800 */
+            box-sizing: border-box;
+            transition: margin-right 0.3s ease-in-out; /* Smooth transition for body shift */
+        }
+
+        /* Prevent horizontal scroll when menu is open */
+        body.menu-open {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: rgba(224, 247, 250, 0.8);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            border-bottom: 1px solid #b2dfdb;
+        }
+
+        /* Navigation container styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo image styles */
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        /* Navigation links list styles */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+            gap: 1.5rem;
+            /* Default for desktop */
+        }
+
+        /* Navigation link item styles */
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: #00bfa5;
+            background-color: rgba(0, 191, 165, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu button styles (hidden by default on desktop) */
+        .menu-button {
+            display: none; /* Hidden on larger screens */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #00bfa5;
+        }
+
+        /* Hero and Carousel container styles */
+        .hero-carousel-section {
+            display: flex;
+            flex-direction: column; /* Always column to stack content vertically */
+            max-width: 200rem; /* max-w-7xl */
+            margin-left: auto; /* mx-auto */
+            margin-right: auto; /* mx-auto */
+            margin-top: 6rem; /* mt-24 */
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+            align-items: center;
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .hero-carousel-section {
+                margin-top: 8rem; /* md:mt-32 */
+                padding-left: 2rem; /* md:px-8 */
+                padding-right: 2rem; /* md:px-8 */
+            }
+        }
+
+        /* Hero section content styles */
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%; /* Always full width */
+            text-align: center; /* Always centered for consistency */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+
+        /* Hero background image styles */
+        .hero-background-image {
+            background-image: url('images/misor.jpg');
+            background-color: #d1d5db; /* bg-gray-300 */
+            height: 12rem; /* h-48 */
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .hero-background-image {
+                height: 16rem; /* md:h-64 */
+            }
+        }
+
+        /* Media query for large screens (lg) and larger */
+        @media (min-width: 1024px) {
+            .hero-background-image {
+                height: 470px; /* lg:h-[470px] */
+            }
+        }
+
+        /* Hero title styles */
+        .hero-main-title {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #00695c; /* text-teal-800 */
+            margin-bottom: 0.5rem; /* mb-2 */
+             animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        /* Keyframes for the fadeInScale animation */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .hero-main-title {
+                font-size: 2.25rem; /* md:text-4xl */
+            }
+        }
+
+        /* Media query for large screens (lg) and larger */
+        @media (min-width: 1024px) {
+            .hero-main-title {
+                font-size: 3rem; /* lg:text-5xl */
+            }
+        }
+
+        /* Hero subtitle styles */
+        .hero-sub-text {
+            font-size: 1rem; /* text-base */
+            color: #43a047; /* text-green-700 */
+            font-style: italic;
+            line-height: 1.625; /* leading-relaxed */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .hero-sub-text {
+                font-size: 1.125rem; /* md:text-lg */
+            }
+        }
+
+        /* Explore button styles */
+        .explore-action-button {
+            background-color: #00897b; /* bg-teal-600 */
+            color: #fff; /* text-white */
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            font-weight: 500; /* font-medium */
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; /* transition-all duration-300 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
+            display: flex;
+            width: 100%; /* Full width on small screens */
+            max-width: 300px; /* Constrain width on larger screens */
+            margin-left: auto; /* mx-auto */
+            margin-right: auto; /* mx-auto */
+            justify-content: center; /* Center text inside button */
+            align-items: center; /* Center text inside button */
+        }
+
+        .explore-action-button:hover {
+            background-color: #00bfa5; /* hover:bg-teal-500 */
+            transform: scale(1.05);
+        }
+
+        /* Carousel container styles */
+        .carousel-main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%; /* Always full width */
+            margin-top: 1rem; /* mt-4 */
+        }
+
+        /* Carousel indicators styles */
+        .carousel-dots-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .carousel-dots-container {
+                margin-bottom: 0.5rem; /* md:mb-2 */
+            }
+        }
+
+        /* Individual indicator dot styles */
+        .indicator-dot {
+            width: 0.75rem; /* w-3 */
+            height: 0.75rem; /* h-3 */
+            background-color: #b2dfdb; /* bg-teal-200 */
+            border-radius: 9999px; /* rounded-full */
+            margin-left: 0.5rem; /* mx-2 */
+            margin-right: 0.5rem; /* mx-2 */
+            cursor: pointer;
+            border: 1px solid #4db6ac; /* border border-teal-400 */
+        }
+
+        .indicator-dot.active {
+            background-color: #00897b; /* active:bg-teal-600 */
+        }
+
+        /* Destination carousel wrapper styles */
+        .destination-carousel-wrapper {
+            width: 100%; /* w-full */
+            overflow: hidden;
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .destination-carousel-wrapper {
+                padding-left: 2rem; /* md:px-8 */
+                padding-right: 2rem; /* md:px-8 */
+            }
+        }
+
+        /* Carousel track styles (holds all cards) */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: fit-content; /* w-fit */
+        }
+
+        /* Individual destination card styles */
+        .destination-card {
+            background-color: rgba(197, 248, 205, 0.9); /* bg-green-100/90 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+            flex-shrink: 0;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* transition-all duration-300 ease-in-out */
+            margin-right: 1rem; /* mr-4 */
+            margin-bottom: 1rem; /* mb-4 */
+            width: calc(80% / 3 - 1rem);
+            height: 100%; /* Default for desktop, adjusted in JS for mobile */
+            box-sizing: border-box; /* Ensure padding/border are included in width */
+        }
+
+        .destination-card:last-child {
+            margin-right: 0;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px); /* hover:translate-y-[-8px] */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* hover:shadow-xl */
+        }
+
+        /* Card image styles */
+        .card-image {
+            width: 100%;
+            height: 12rem; /* Fixed height for consistent card appearance */
+            object-fit: cover; /* Ensures image fills the space, cropping if necessary */
+            border-top-left-radius: 0.75rem; /* rounded-t-xl */
+            border-top-right-radius: 0.75rem; /* rounded-t-xl */
+        }
+
+        /* Card body padding */
+        .card-content-body {
+            padding: 1rem; /* p-4 */
+        }
+
+        /* Card title styles */
+        .card-title {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #00695c; /* text-teal-800 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .card-title {
+                font-size: 1.25rem; /* md:text-xl */
+            }
+        }
+
+        /* Card location text styles */
+        .card-location {
+            font-size: 1rem; /* text-base */
+            color: #43a047; /* text-green-700 */
+            font-style: italic;
+        }
+
+        /* Carousel controls container styles */
+        .carousel-controls-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem; /* gap-4 */
+            margin-top: 1rem; /* mt-4 */
+            width: 100%; /* w-full */
+        }
+
+        /* Control button styles */
+        .carousel-control-button {
+            background-color: #00897b; /* bg-teal-600 */
+            color: #fff; /* text-white */
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out; /* transition-all duration-300 */
+            font-size: 1.125rem; /* text-lg */
+            border: none; /* remove default button border */
+        }
+
+        .carousel-control-button:hover {
+            background-color: #00bfa5; /* hover:bg-teal-500 */
+        }
+
+        .carousel-control-button:disabled {
+            background-color: #4db6ac; /* disabled:bg-teal-400 */
+            cursor: not-allowed;
+        }
+
+        /* Media queries for responsiveness (using new class names) */
+        @media (max-width: 767px) { /* Changed to 767px to align with common mobile breakpoint */
+            /* Navigation adjustments for mobile */
+            nav {
+                flex-wrap: wrap; /* Allow items to wrap */
+                padding: 0 1rem; /* Adjust padding for smaller screens */
+            }
+
+            .logo {
+                flex-grow: 1; /* Allow logo to take available space */
+            }
+
+            .menu-button {
+                display: block; /* Show hamburger menu on small screens */
+            }
+
+            .nav-links {
+                /* Mobile sidebar specific styles */
+                position: fixed; /* Fixed position for sidebar */
+                top: 0;
+                right: -100%; /* Start off-screen to the right */
+                height: 100%; /* Full height */
+                width: 70%; /* Adjust width as needed, e.g., 70% of viewport width */
+                max-width: 300px; /* Max width for larger mobile devices */
+                background-color: rgba(224, 247, 250, 0.95); /* Semi-transparent background */
+                padding: 6rem 1rem 1rem; /* Padding for top (below header), right, bottom, left */
+                flex-direction: column; /* Stack links vertically */
+                align-items: center; /* Center links horizontally within sidebar */
+                transition: right 0.3s ease-in-out; /* Smooth transition for sliding */
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                z-index: 100; /* Ensure it's above other content */
+                overflow-y: auto; /* Enable scrolling if links exceed height */
+                display: flex; /* Keep flex for layout, but hide by position */
+            }
+
+            .nav-links.active {
+                right: 0; /* Slide into view */
+            }
+
+            .nav-links a {
+                padding: 0.75rem 1.5rem; /* More padding for touch targets */
+                width: 100%; /* Full width within the sidebar */
+                text-align: center; /* Center text */
+                border-bottom: 1px solid #b2dfdb; /* Separator between links */
+            }
+            .nav-links li:last-child a {
+                border-bottom: none; /* No border for the last link */
+            }
+
+            /* Hero and Carousel section adjustments */
+            .hero-carousel-section {
+                flex-direction: column; /* Ensure column on small screens */
+                align-items: stretch; /* Stretch items to fill width */
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-content {
+                flex: 0 0 auto;
+                width: 100%;
+                padding-right: 0;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-background-image {
+                height: 200px;
+            }
+
+            .carousel-main-container {
+                margin-top: 1rem;
+            }
+
+            .carousel-dots-container {
+                margin-bottom: 0.5rem;
+            }
+
+            .destination-carousel-wrapper {
+                padding-left: 0.5rem; /* Slightly less padding for mobile carousel */
+                padding-right: 0.5rem;
+            }
+
+            .destination-card {
+                width: 100%; /* Full width on mobile */
+                margin-right: 0; /* No right margin on mobile */
+                margin-bottom: 1rem; /* Add bottom margin for stacking */
+            }
+
+            .destination-card:last-child {
+                margin-bottom: 0; /* No bottom margin for the last card */
+            }
+
+            .explore-action-button {
+                width: 100px; /* Adjust button width for mobile */
+                max-width: 250px; /* Max width for mobile button */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Initao Logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';" style="height: 60px; margin-right: 10px;">
+            </div>
+            <button class="menu-button" id="menuButton" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="plan.html">Plan Your Visit</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero-carousel-section">
+        <div class="hero-content">
+            <div class="hero-background-image"></div>
+            <h1 class="hero-main-title">Discover Initao's Best Spots</h1>
+            <p class="hero-sub-text">Explore our top-rated tourist destinations.</p>
+            <a href="details.html" class="explore-action-button">See More</a>
+        </div>
+        <div class="carousel-main-container">
+            <div class="carousel-dots-container hidden">
+                <div class="indicator-dot active"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+            </div>
+            <div class="destination-carousel-wrapper">
+                <div class="carousel-track">
+                    <div class="destination-card">
+                        <img src="images/kawayan.jpg" alt="Kawayan Cliff Beach Resort" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Kawayan';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Kawayan Cliff Resort</h3>
+                            <p class="card-location">Relaxing Shores</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/tubajon.jpg" alt="Punta Silum Eco Park" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Tubajon';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Tubajon Aquamarine Park</h3>
+                            <p class="card-location">Coastal Beauty</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/shrine.jpg" alt="Divine Mercy Shrine Church" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Divine+Mercy+Shrine';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Divine Mercy Shrine Church</h3>
+                            <p class="card-location">Divine Places</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/midway.jpg" alt="Initao-Libertad Protected Landscape" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Midway';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Midway Minkay White Beach Resort</h3>
+                            <p class="card-location">Nature's Haven</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/cave.jpg" alt="Initao Cave" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Initao+Cave';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Initao Cave</h3>
+                            <p class="card-location">Underground Adventure</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/initaopark.jpg" alt="Lasang Secret Adventure" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Lasang+Adventure';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Lasang Secret Adventure</h3>
+                            <p class="card-location">Adventurous Parks</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/emperor.jpg" alt="Baluarte de Initao" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Emperor';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Initao Emperor’s Beach</h3>
+                            <p class="card-location">Historical Site</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/spring.jpg" alt="Obong Spring" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Spring';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Dampias Falls</h3>
+                            <p class="card-location">Natural Refreshment</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/landscape.jpg" alt="Alangar Eco-Park" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Landscape';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Initao-Libertad Protected Landscape</h3>
+                            <p class="card-location">Nature and Culture</p>
+                        </div>
+                    </div>
+                    <div class="destination-card">
+                        <img src="images/signature.jpg" alt="Kinoguitan Marine Sanctuary" class="card-image" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Signature';">
+                        <div class="card-content-body">
+                            <h3 class="card-title">Signature Resort</h3>
+                            <p class="card-location">Unique Resorts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls-container hidden">
+                <button class="carousel-control-button" id="prevBtn" disabled>Previous</button>
+                <button class="carousel-control-button" id="nextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const track = document.querySelector('.carousel-track');
+        // `indicators`, `prevBtn`, `nextBtn` are still referenced but are hidden in HTML.
+        const indicators = document.querySelectorAll('.indicator-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const container = document.querySelector('.destination-carousel-wrapper');
+
+        const menuButton = document.getElementById('menuButton');
+        const navLinks = document.getElementById('navLinks');
+
+        let currentIndex = 0;
+        let numVisibleCards = 3; // Default for desktop
+        let slideInterval;
+        let originalCards = []; // To store references to original cards
+        let isResettingPosition = false; // Flag to manage the instant reset for seamless loop
+
+        /**
+         * Toggles the visibility of the navigation links for mobile.
+         * Also toggles a class on the body to prevent horizontal scrolling.
+         */
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        }
+
+        // Add event listener for the menu button
+        menuButton.addEventListener('click', toggleMenu);
+
+        /**
+         * Initializes the carousel content by getting original cards and cloning
+         * the first `numVisibleCards` to the end for seamless looping.
+         * This should be called on page load and on window resize.
+         */
+        function initializeCarouselContent() {
+            // Get original cards if not already set (first run)
+            // This ensures `originalCards` is populated correctly.
+            if (originalCards.length === 0) {
+                originalCards = Array.from(document.querySelectorAll('.destination-card'));
+            }
+
+            // Remove any previously added clones before re-adding (important on resize)
+            document.querySelectorAll('.cloned-card').forEach(clone => clone.remove());
+
+            // Append clones of the first 'numVisibleCards' original cards to the track
+            // This creates the buffer for a smooth infinite loop.
+            for (let i = 0; i < numVisibleCards; i++) {
+                const clone = originalCards[i].cloneNode(true);
+                clone.classList.add('cloned-card'); // Mark as clone
+                track.appendChild(clone);
+            }
+        }
+
+        /**
+         * Updates the number of visible cards based on the window width.
+         * Then re-initializes carousel content to adjust for new clone count.
+         */
+        function updateNumVisibleCards() {
+            const oldNumVisibleCards = numVisibleCards;
+            if (window.innerWidth < 768) {
+                numVisibleCards = 1;
+            } else {
+                numVisibleCards = 3;
+            }
+
+            // Only re-initialize clones if the number of visible cards has changed
+            // or if it's the initial load (originalCards.length === 0 means not initialized yet).
+            if (oldNumVisibleCards !== numVisibleCards || originalCards.length === 0) {
+                initializeCarouselContent();
+            }
+        }
+
+        /**
+         * Updates the carousel's transform property to show the correct slide.
+         * Manages the seamless looping jump when reaching cloned cards.
+         */
+        function updateCarousel() {
+            if (originalCards.length === 0) return; // Ensure cards are loaded
+
+            let cardTotalWidth = originalCards[0].offsetWidth;
+            if (window.innerWidth >= 768) {
+                cardTotalWidth += 16; // Add 16px for 1rem margin-right
+            }
+
+            // Apply transition for normal sliding
+            track.style.transition = 'transform 0.5s ease-in-out';
+            track.style.transform = `translateX(-${currentIndex * cardTotalWidth}px)`;
+
+            // Logic for seamless loop: When we slide onto a cloned card.
+            // `currentIndex` will be `originalCards.length` or more.
+            // We set a flag and wait for the visual transition to complete.
+            if (currentIndex >= originalCards.length && !isResettingPosition) {
+                isResettingPosition = true; // Prevent re-triggering during reset
+
+                // Listen for the end of the current visual transition
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler); // Remove listener after one use
+
+                    // Instantly jump back to the real first card without animation
+                    track.style.transition = 'none';
+                    currentIndex = 0; // Reset index to the start of original cards
+                    track.style.transform = `translateX(-${currentIndex * cardTotalWidth}px)`;
+
+                    // Re-enable transition after a very short delay to allow reflow
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                        isResettingPosition = false; // Reset flag
+                    }, 50); // Small delay (e.g., 50ms) to ensure transition: none takes effect
+                });
+            }
+        }
+
+        /**
+         * Navigates the carousel to the next slide.
+         * Increments currentIndex, updateCarousel will handle the looping logic.
+         */
+        function nextSlide() {
+            if (isResettingPosition) return; // Prevent new slide while resetting position
+
+            // Increment index. updateCarousel will handle the visual jump for looping
+            // when it detects that currentIndex has gone into the cloned section.
+            currentIndex++;
+            updateCarousel();
+            // Indicators and buttons are hidden, so their update calls are not strictly necessary for UI,
+            // but keeping them for consistency if they were to be re-enabled.
+            updateIndicators();
+            updateButtons();
+        }
+
+        // `prevSlide` and `goToSlide` are not used by auto-slide, but kept for completeness.
+        // Their functionality would need more complex logic for seamless backward looping.
+        function prevSlide() {
+            if (isResettingPosition) return;
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                // If at the beginning, jump to the last original card + clones for a backward loop.
+                currentIndex = originalCards.length + numVisibleCards - 1;
+            }
+            updateCarousel();
+            updateIndicators();
+            updateButtons();
+        }
+
+        function goToSlide(index) {
+            if (isResettingPosition) return;
+            // This function would need to be re-evaluated for seamless jumps if re-enabled.
+            // For now, it will just jump to the specified index within original cards.
+            if (index >= 0 && index < originalCards.length) {
+                currentIndex = index;
+                updateCarousel();
+                updateIndicators();
+                updateButtons();
+            }
+        }
+
+        /**
+         * Starts the automatic sliding of the carousel.
+         * Clears any existing interval before setting a new one.
+         */
+        function startAutoSlide() {
+            clearInterval(slideInterval); // Clear any existing interval
+            slideInterval = setInterval(() => {
+                nextSlide();
+            }, 3000); // Change slide every 3 seconds (3000 milliseconds)
+        }
+
+        /**
+         * Stops the automatic sliding of the carousel.
+         */
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+
+        // Add an event listener to recalculate carousel layout on window resize.
+        window.addEventListener('resize', () => {
+            updateNumVisibleCards(); // Re-evaluate how many cards should be visible and re-initialize clones
+            updateCarousel();         // Adjust carousel position based on new card widths/visibility
+            // If the menu is open on mobile and screen resizes to desktop, close the menu
+            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+            startAutoSlide(); // Restart auto-slide to ensure smooth continuation
+        });
+
+        // Initialize the carousel content and then start auto-slide on page load.
+        window.onload = function() {
+            updateNumVisibleCards(); // This will also call initializeCarouselContent
+            updateCarousel(); // Initial positioning
+            startAutoSlide(); // Start auto-sliding
+
+            // Optional: Pause auto-slide on hover over the carousel to allow users to read/interact
+            container.addEventListener('mouseenter', stopAutoSlide);
+            container.addEventListener('mouseleave', startAutoSlide);
+
+            // Fallback for logo image
+            document.querySelector('.logo img').onerror = function() {
+                this.src = 'https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';
+            };
+        };
+
+        // Function to handle logout and redirect
+        function logout() {
+            console.log("Logging out...");
+            window.location.href = "index.html"; // Redirect to your login page
+        }
+
+        // Get the logout button and add an event listener
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                logout();
+            });
+        }
+    </script>
+</body>
+</html>

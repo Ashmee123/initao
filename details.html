@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Details - Initao Municipality</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* bg-cyan-50 */
+            margin: 0;
+            padding: 0;
+            color: #2e7d32; /* text-green-800 */
+            box-sizing: border-box;
+            transition: margin-right 0.3s ease-in-out; /* Smooth transition for body shift */
+        }
+
+        /* Prevent horizontal scroll when menu is open */
+        body.menu-open {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: rgba(224, 247, 250, 0.8);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            border-bottom: 1px solid #b2dfdb;
+        }
+
+        /* Navigation container styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo image styles */
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        /* Navigation links list styles */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+            gap: 1.5rem;
+            /* Default for desktop */
+        }
+
+        /* Navigation link item styles */
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: #00bfa5;
+            background-color: rgba(0, 191, 165, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu button styles (hidden by default on desktop) */
+        .menu-button {
+            display: none; /* Hidden on larger screens */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #00bfa5;
+        }
+
+        /* Main content section styles */
+        .details-section {
+            padding-top: 8rem; /* To account for fixed header */
+            padding-bottom: 3rem;
+            max-width: 900px; /* Max width for content */
+            margin: 0 auto;
+            padding-left: 1rem; /* Add padding for smaller screens */
+            padding-right: 1rem; /* Add padding for smaller screens */
+            text-align: center; /* Center align text */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .details-section {
+                padding-top: 8rem; /* Adjust for larger header on desktop */
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* Title styles */
+        .details-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00695c;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Image container styles */
+        .details-image-container {
+            width: 100%;
+            max-width: 700px; /* Max width for the image */
+            margin: 0 auto 2rem; /* Center image and add bottom margin */
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            position: relative; /* Needed for Swiper navigation/pagination positioning */
+        }
+
+        /* Image styles within Swiper */
+        .details-image {
+            width: 100%;
+            height: auto;
+            min-height: 15rem; /* Min height for better visual */
+            max-height: 25rem; /* Max height to control size */
+            object-fit: cover; /* Cover the container, cropping if necessary */
+            display: block;
+        }
+
+        /* Description text styles */
+        .details-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #43a047;
+            text-align: justify; /* Justify text for better readability */
+            margin-bottom: 2rem;
+        }
+
+        /* Back button styles */
+        .back-button {
+            background-color: #00897b;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* Allow button to be centered */
+            margin-top: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #00bfa5;
+            transform: scale(1.05);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #00695c;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Swiper Styles (reused from plan.html for consistency) */
+        .swiper {
+            width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+        }
+
+        .swiper-slide {
+            /* No specific background or padding needed here as it's just an image */
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* HIDE Swiper navigation buttons (arrows) */
+        .swiper-button-prev, .swiper-button-next {
+            display: none; /* This will hide the previous and next buttons */
+        }
+
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #b2dfdb;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #00bfa5;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 767px) { /* Changed to 767px for consistency */
+            /* Navigation adjustments for mobile */
+            nav {
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            .logo {
+                flex-grow: 1;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100%;
+                width: 70%;
+                max-width: 300px;
+                background-color: rgba(224, 247, 250, 0.95);
+                padding: 6rem 1rem 1rem;
+                flex-direction: column;
+                align-items: center;
+                transition: right 0.3s ease-in-out;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+                overflow-y: auto;
+                display: flex;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                padding: 0.75rem 1.5rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #b2dfdb;
+            }
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            /* Details section adjustments for mobile */
+            .details-section {
+                padding-top: 5rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .details-title {
+                font-size: 2rem;
+            }
+
+            .details-image-container {
+                margin-bottom: 1.5rem;
+            }
+
+            .details-image {
+                min-height: 10rem;
+                max-height: 20rem;
+            }
+
+            .details-description {
+                font-size: 1rem;
+                text-align: left; /* Revert to left align for mobile text */
+            }
+
+            /* Swiper navigation buttons are already hidden globally, but keep this for clarity */
+            /* .swiper-button-prev, .swiper-button-next {
+                display: none;
+            } */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Initao Logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';" style="height: 60px; margin-right: 10px;">
+            </div>
+            <button class="menu-button" id="menuButton" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="plan.html">Plan Your Visit</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="details-section">
+        <h1 class="details-title">Welcome to Initao Municipality!</h1>
+        <div class="details-image-container">
+            <div class="swiper mySwiperDetails">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="images/Initaoview1.jpg" alt="Initao Municipality Landscape" class="details-image" onerror="this.onerror=null;this.src='https://placehold.co/700x400/c5f8cd/2e7d32?text=Initao+1';">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/initaoview2.png" alt="Kawayan Cliff Resort" class="details-image" onerror="this.onerror=null;this.src='https://placehold.co/700x400/c5f8cd/2e7d32?text=Initao+2';">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/initaoview3.jpg" alt="Tubajon Aquamarine Park" class="details-image" onerror="this.onerror=null;this.src='https://placehold.co/700x400/c5f8cd/2e7d32?text=Initao+3';">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/initaoview4.jpg" alt="Divine Mercy Shrine" class="details-image" onerror="this.onerror=null;this.src='https://placehold.co/700x400/c5f8cd/2e7d32?text=Initao+4';">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/cave.jpg" alt="Initao Cave" class="details-image" onerror="this.onerror=null;this.src='https://placehold.co/700x400/c5f8cd/2e7d32?text=Initao+5';">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        <p class="details-description">
+            Initao is a beautiful municipality located in the province of Misamis Oriental, Philippines. It is renowned for its stunning natural landscapes, ranging from pristine beaches with crystal-clear waters to lush forests and intriguing caves. One of its most famous attractions is the Initao-Libertad Protected Landscape and Seascape, a vast area protected for its unique biodiversity.
+            <br><br>
+            Here, you can engage in various activities such as spelunking (cave exploration), snorkeling in the clear waters, and trekking through the forest trails. The municipality also boasts several resorts and recreational areas perfect for families and friends looking for relaxation or adventure.
+            <br><br>
+            Beyond its natural beauty, Initao is also home to warm and friendly locals. Don't miss the chance to savor fresh seafood at local eateries and explore the bustling markets to experience the authentic culture of Initao. A visit to Initao is guaranteed to be an unforgettable journey.
+        </p>
+        <a href="home.html" class="back-button">Back to Home</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Initao Tourism. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        // Get references to DOM elements
+        const menuButton = document.getElementById('menuButton');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+
+        /**
+         * Toggles the visibility of the navigation links for mobile.
+         * Also toggles a class on the body to prevent horizontal scrolling.
+         */
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            body.classList.toggle('menu-open'); // Toggle class on body to prevent scroll
+        }
+
+        // Add event listener for the menu button
+        if (menuButton) {
+            menuButton.addEventListener('click', toggleMenu);
+        }
+
+        // Add an event listener to close the menu on resize if it's open and screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class on body
+            }
+        });
+
+        // Function to handle logout and redirect
+        function logout() {
+            console.log("Logging out...");
+            window.location.href = "index.html"; // Redirect to your login page
+        }
+
+        // Get the logout button and add an event listener
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                logout();
+            });
+        }
+
+        // Fallback for logo image
+        document.querySelector('.logo img').onerror = function() {
+            this.src = 'https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';
+        };
+
+        // Initialize Swiper for the image carousel
+        var swiperDetails = new Swiper(".mySwiperDetails", {
+            slidesPerView: 1,
+            spaceBetween: 0, // No space between images in this carousel
+            loop: true, // Enable infinite loop
+            autoplay: {
+                delay: 3000, // 3 seconds delay before next slide
+                disableOnInteraction: false, // Continue autoplay after user interaction
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            // Removed navigation property to hide buttons
+        });
+    </script>
+</body>
+</html>

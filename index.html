@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Municipality of Initao - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url(images/pic33.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      color: white;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .logo-container {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 137, 123, 0.5);
+      background-color: #f8f9fa;
+      animation: logoSpin 3s ease-out forwards;
+    }
+
+    @keyframes logoSpin {
+      from {
+        transform: rotateY(0deg) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: rotateY(360deg) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .resort-name {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .login-text {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid white;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      background-color: transparent;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: white;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    .input::placeholder {
+      color: #eeeeee;
+    }
+
+    #togglePassword {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      fill: #eeeeee;
+      width: 20px;
+      height: 20px;
+      transition: fill 0.3s;
+    }
+
+    #togglePassword:hover {
+      fill: white;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: white;
+      color: #00897b;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .login-button:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #ff5252;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+
+      .resort-name {
+        font-size: 1.5rem;
+      }
+
+      .login-text {
+        font-size: 1rem;
+      }
+
+      .logo-container {
+        width: 70px;
+        height: 70px;
+      }
+
+      .login-button {
+        font-size: 0.95rem;
+      }
+
+      .input {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm" class="container">
+    <div class="logo-container">
+      <img src="images/logo.png" alt="Municipality of Initao Logo" class="logo-img">
+    </div>
+    <h1 class="resort-name">Municipality of Initao</h1>
+    <div class="login-text">Login to Your Account</div>
+
+    <div class="input-group">
+      <input class="input" type="email" name="username" id="username" placeholder="Email" autocomplete="off" required>
+    </div>
+
+    <div class="input-group">
+      <input class="input" id="password" name="password" type="password" placeholder="Password" required>
+      <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+        <path d="M572.52 241.4C518.14 135.5 407.5 64 288 64S57.86 135.5 3.48 241.4a48.35 48.35 0 0 0 0 29.2C57.86 376.5 168.5 448 288 448s230.14-71.5 284.52-177.4a48.35 48.35 0 0 0 0-29.2zM288 400c-88.22 0-168.2-48.44-215.77-128C119.8 192.44 199.78 144 288 144s168.2 48.44 215.77 128C456.2 351.56 376.22 400 288 400zm0-208a80 80 0 1 0 80 80 80.09 80.09 0 0 0-80-80z"/>
+      </svg>
+    </div>
+
+    <button type="submit" class="login-button">Login</button>
+
+    <div id="errorMsg" class="error-message"></div>
+  </form>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const errorMsg = document.getElementById("errorMsg");
+
+    // Fixed username and password for demo
+    const validUsername = "admin@gmail.com";
+    const validPassword = "1234";
+
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+    });
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        errorMsg.textContent = "All fields are required.";
+        errorMsg.style.display = "block";
+      } else if (username !== validUsername || password !== validPassword) {
+        errorMsg.textContent = "Invalid username or password.";
+        errorMsg.style.display = "block";
+      } else {
+        errorMsg.style.display = "none";
+        alert("Welcome to Municipality of Initao!");
+        window.location.href = "home.html";
+      }
+    });
+  </script>
+</body>
+</html>

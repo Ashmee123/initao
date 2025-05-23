@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initao Photo Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f7fa; /* bg-cyan-50 */
+            margin: 0;
+            padding: 0;
+            color: #2e7d32; /* text-green-800 */
+            box-sizing: border-box;
+            transition: margin-right 0.3s ease-in-out; /* Smooth transition for body shift */
+        }
+
+        /* Prevent horizontal scroll when menu is open */
+        body.menu-open {
+            overflow-x: hidden;
+        }
+
+        /* Header styles */
+        header {
+            background-color: rgba(224, 247, 250, 0.8);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            border-bottom: 1px solid #b2dfdb;
+        }
+
+        /* Navigation container styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Logo image styles */
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        /* Navigation links list styles */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+            gap: 1.5rem;
+            /* Default for desktop */
+        }
+
+        /* Navigation link item styles */
+        .nav-links a {
+            text-decoration: none;
+            color: #2e7d32;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: #00bfa5;
+            background-color: rgba(0, 191, 165, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hamburger menu button styles (hidden by default on desktop) */
+        .menu-button {
+            display: none; /* Hidden on larger screens */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #2e7d32;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button:hover {
+            color: #00bfa5;
+        }
+
+        /* Gallery section styles */
+        .gallery-section {
+            padding-top: 7rem; /* To account for fixed header */
+            padding-bottom: 4rem;
+            text-align: center;
+            max-width: 1200px; /* Constrain content width */
+            margin: 0 auto; /* Center content */
+            padding-left: 1rem; /* Add padding for smaller screens */
+            padding-right: 1rem; /* Add padding for smaller screens */
+        }
+
+        /* Media query for medium screens (md) and larger */
+        @media (min-width: 768px) {
+            .gallery-section {
+                padding-top: 8rem; /* Adjust for larger header on desktop */
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* Section title styles */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #00695c;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.1em;
+            animation: fadeInScale 1.5s ease-out forwards;
+        }
+
+        /* Keyframes for the fadeInScale animation */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        
+        }
+
+        /* Subtitle styles */
+        .title2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+            padding: 0 1rem;
+        }
+
+        /* Gallery grid styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-items: center; /* Center grid items */
+        }
+
+        /* Individual gallery item styles */
+        .gallery-item {
+            border-radius: 0.75rem;
+            overflow: hidden; /* Ensures image scale doesn't break border-radius */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            width: 100%; /* Ensure item takes full width of its grid column */
+            max-width: 350px; /* Max width for individual items to prevent excessive stretching */
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-0.75rem);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Gallery image styles */
+        .gallery-item img {
+            width: 100%;
+            height: 12rem; /* Fixed height for consistent appearance */
+            object-fit: cover; /* Ensures image fills the space, cropping if necessary */
+            display: block;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05); /* Slightly increased scale for better visual */
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #00695c;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 767px) { /* Changed to 767px for consistency */
+            /* Navigation adjustments for mobile */
+            nav {
+                flex-wrap: wrap; /* Allow items to wrap */
+                padding: 0 1rem; /* Adjust padding for smaller screens */
+            }
+
+            .logo {
+                flex-grow: 1; /* Allow logo to take available space */
+            }
+
+            .menu-button {
+                display: block; /* Show hamburger menu on small screens */
+            }
+
+            .nav-links {
+                /* Mobile sidebar specific styles */
+                position: fixed; /* Fixed position for sidebar */
+                top: 0;
+                right: -100%; /* Start off-screen to the right */
+                height: 100%; /* Full height */
+                width: 70%; /* Adjust width as needed, e.g., 70% of viewport width */
+                max-width: 300px; /* Max width for larger mobile devices */
+                background-color: rgba(224, 247, 250, 0.95); /* Semi-transparent background */
+                padding: 6rem 1rem 1rem; /* Padding for top (below header), right, bottom, left */
+                flex-direction: column; /* Stack links vertically */
+                align-items: center; /* Center links horizontally within sidebar */
+                transition: right 0.3s ease-in-out; /* Smooth transition for sliding */
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                z-index: 100; /* Ensure it's above other content */
+                overflow-y: auto; /* Enable scrolling if links exceed height */
+                display: flex; /* Keep flex for layout, but hide by position */
+            }
+
+            .nav-links.active {
+                right: 0; /* Slide into view */
+            }
+
+            .nav-links a {
+                padding: 0.75rem 1.5rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #b2dfdb;
+            }
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            /* Gallery section and grid adjustments for mobile */
+            .gallery-section {
+                padding: 5rem 1rem 1rem; /* Adjusted padding for mobile */
+            }
+
+            .section-title {
+                font-size: 2.5rem; /* Smaller title on mobile */
+            }
+
+            .title2 {
+                font-size: 1rem; /* Smaller subtitle on mobile */
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 1.5rem; /* Slightly smaller gap on mobile */
+            }
+
+            .gallery-item {
+                max-width: 100%; /* Allow items to take full width on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Initao Logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/c5f8cd/2e7d32?text=Logo';" style="height: 60px; margin-right: 10px;">
+            </div>
+            <button class="menu-button" id="menuButton" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="attractions.html">Attractions</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="plan.html">Plan Your Visit</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="gallery-section">
+        <h2 class="section-title">Photo Gallery</h2>
+        <h2 class="title2" > Be fascinated by the wonderful landscapes you can find in Initao, Misamis Oriental! </h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/cave.jpg" alt="Initao Cave" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Initao+Cave';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/blu.jpg" alt="Blue Water" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Blue+Water';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/emperor.jpg" alt="Emperor Beach" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Emperor+Beach';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/initaopark.jpg" alt="Initao Park" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Initao+Park';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/kawayan.jpg" alt="Kawayan Resort" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Kawayan+Resort';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/midway.jpg" alt="Midway Beach" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Midway+Beach';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/shrine.jpg" alt="Divine Mercy Shrine" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Divine+Mercy+Shrine';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/tubajon.jpg" alt="Tubajon Aquamarine Park" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Tubajon+Park';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/signature.jpg" alt="Signature Resort" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Signature+Resort';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/landscape.jpg" alt="Protected Landscape" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Protected+Landscape';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic1.jpg" alt="Initao Scenery 1" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+1';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic4.webp" alt="Initao Scenery 2" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+2';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic5.jpg" alt="Initao Scenery 3" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+3';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/spring.jpg" alt="Dampias Falls" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Dampias+Falls';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic4.webp" alt="Initao Scenery 4" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+4';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic6.jpg" alt="Initao Scenery 5" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+5';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic7.jpg" alt="Initao Scenery 6" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+6';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic22.jpg" alt="Initao Scenery 7" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+7';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic33.png" alt="Initao Scenery 8" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+8';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic44.jpg" alt="Initao Scenery 9" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+9';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pic55.jpg" alt="Initao Scenery 10" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Scenery+10';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/snorkeling.jpg" alt="Snorkeling" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Snorkeling';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/cave2.jpg" alt="Cave Entrance" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Cave+Entrance';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/pm.jpg" alt="Local Market" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Local+Market';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/park.jpg" alt="Nature Park" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Nature+Park';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/misor.webp" alt="Misamis Oriental View" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Misamis+Oriental';">
+            </div>
+            <div class="gallery-item">
+                <img src="images/misor.jpg" alt="Initao Scenery" onerror="this.onerror=null;this.src='https://placehold.co/400x200/c5f8cd/2e7d32?text=Initao+Scenery';">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Initao Tourism. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get references to DOM elements
+        const menuButton = document.getElementById('menuButton');
+        const navLinks = document.getElementById('navLinks');
+        const body = document.body;
+
+        /**
+         * Toggles the visibility of the navigation links for mobile.
+         * Also toggles a class on the body to prevent horizontal scrolling.
+         */
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
+            body.classList.toggle('menu-open'); // Toggle class on body to prevent scroll
+        }
+
+        // Add event listener for the menu button
+        if (menuButton) {
+            menuButton.addEventListener('click', toggleMenu);
+        }
+
+        // Add an event listener to close the menu on resize if it's open and screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open'); // Remove class on body
+            }
+        });
+
+        function logout() {
+            // Here you would typically clear any user session data (e.g., tokens, user info)
+            // For this example, we'll just redirect.
+            console.log("Logging out...");
+            // Redirect to your login page (e.g., login.html)
+            window.location.href = "index.html"; // Make sure you have a login.html file
+        }
+
+        // Get the logout button and add an event listener
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent default link behavior
+                logout();
+            });
+        }
+    </script>
+</body>
+</html>
